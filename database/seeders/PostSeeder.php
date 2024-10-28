@@ -16,7 +16,7 @@ class PostSeeder extends Seeder
     {
         Post::factory()->count(25)->create();
 
-        $user = User::where('email', 'test@test.com')->first();
+        $user = User::where('email', 'test@example.com')->first();
         if($user) {
             Post::factory(5)->draft()->create([
                 'user_id' => $user->id,

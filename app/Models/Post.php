@@ -49,4 +49,19 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // notifications
+    protected static function booted(): void
+    {
+        static::created(function ($post) {
+            if ($post->is_published) {
+                $followers = $post->user->followers;
+                
+                Notification::send(
+                    $followers, 
+                    new NewPostNotification($post)
+                );
+            }
+        });
+    }
 }

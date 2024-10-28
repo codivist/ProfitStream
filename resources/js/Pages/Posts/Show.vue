@@ -1,4 +1,5 @@
 <script setup>
+import FollowButton from '@/Components/FollowButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
@@ -32,6 +33,12 @@ defineProps({
                     >
                         ← Back to Posts
                     </Link>
+                    <template v-if="post.user.id !== $page.props.auth.user.id">
+                        <FollowButton
+                            :user="post.user"
+                            :is-following="isFollowing"
+                        />
+                    </template>
                     <Link
                         v-if="$page.props.auth.user.id === post.user_id"
                         :href="route('posts.edit', post.id)"

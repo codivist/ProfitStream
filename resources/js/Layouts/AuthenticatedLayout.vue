@@ -1,11 +1,11 @@
 <script setup>
-import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -44,6 +44,12 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('posts.index')"
                                 >
                                     My Posts
+                                </NavLink>
+                                <NavLink
+                                    :href="route('following')"
+                                    :active="route().current('following')"
+                                >
+                                    Following
                                 </NavLink>
                             </div>
                         </div>
@@ -157,6 +163,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('posts.index')"
                         >
                             My Posts
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('following')"
+                            :active="route().current('following')"
+                        >
+                            Following
                         </ResponsiveNavLink>
                     </div>
 
