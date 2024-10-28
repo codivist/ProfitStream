@@ -134,7 +134,7 @@ test('followers are notified when a published post is created', function () {
             return $notification->post->title === 'New Post';
         }
     );
-})->skip('Skipping follower notification test for now');
+});
 
 test('followers are not notified when a draft post is created', function () {
     Notification::fake();
@@ -150,7 +150,7 @@ test('followers are not notified when a draft post is created', function () {
         ]);
 
     Notification::assertNothingSent();
-})->skip('Skipping follower notification update test for now');
+});
 
 expect()->extend('toBePublished', function () {
     expect($this->value->published_at)->not->toBeNull();

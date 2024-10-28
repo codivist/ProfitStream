@@ -1,5 +1,4 @@
 <script setup>
-import FollowButton from '@/Components/FollowButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
@@ -8,32 +7,19 @@ defineProps({
         type: Array,
         required: true,
     },
-    author: {
-        type: Object,
-        required: true,
-    },
-    isFollowing: {
-        type: Boolean,
-        required: true,
-    },
 });
 </script>
 
 <template>
-    <Head :title="`Posts by ${author.name}`" />
+    <Head title="Following" />
 
     <AuthenticatedLayout>
         <template #header>
-            <div class="flex items-center justify-between">
-                <h2
-                    class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
-                >
-                    Posts by {{ author.name }}
-                </h2>
-                <div v-if="author.id !== $page.props.auth.user.id">
-                    <FollowButton :user="author" :is-following="isFollowing" />
-                </div>
-            </div>
+            <h2
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
+            >
+                Posts from Authors You Follow
+            </h2>
         </template>
 
         <div class="py-12">
@@ -46,7 +32,8 @@ defineProps({
                             v-if="!posts.length"
                             class="py-8 text-center text-gray-600 dark:text-gray-400"
                         >
-                            No posts yet.
+                            No posts from authors you follow. Start following
+                            some authors!
                         </div>
 
                         <div v-else class="space-y-6">
@@ -69,6 +56,19 @@ defineProps({
                                     <p
                                         class="mt-2 text-sm text-gray-600 dark:text-gray-400"
                                     >
+                                        By
+                                        <Link
+                                            :href="
+                                                route(
+                                                    'users.posts',
+                                                    post.user.id,
+                                                )
+                                            "
+                                            class="hover:text-indigo-600 dark:hover:text-indigo-400"
+                                        >
+                                            {{ post.user.name }}
+                                        </Link>
+                                        •
                                         {{
                                             new Date(
                                                 post.published_at,
