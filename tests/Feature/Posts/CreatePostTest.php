@@ -114,43 +114,43 @@ test('title cannot exceed 255 characters', function () {
     $response->assertSessionHasErrors(['title']);
 });
 
-// test('followers are notified when a published post is created', function () {
-//     Notification::fake();
+test('followers are notified when a published post is created', function () {
+    Notification::fake();
 
-//     $follower = User::factory()->create();
-//     $this->user->followers()->attach($follower);
+    $follower = User::factory()->create();
+    $this->user->followers()->attach($follower);
 
-//     $response = $this->actingAs($this->user)
-//         ->post(route('posts.store'), [
-//             'title' => 'New Post',
-//             'body' => 'Test body',
-//             'is_published' => true,
-//         ]);
+    $response = $this->actingAs($this->user)
+        ->post(route('posts.store'), [
+            'title' => 'New Post',
+            'body' => 'Test body',
+            'is_published' => true,
+        ]);
 
-//     Notification::assertSentTo(
-//         $follower,
-//         \App\Notifications\NewPostNotification::class,
-//         function ($notification) {
-//             return $notification->post->title === 'New Post';
-//         }
-//     );
-// });
+    Notification::assertSentTo(
+        $follower,
+        \App\Notifications\NewPostNotification::class,
+        function ($notification) {
+            return $notification->post->title === 'New Post';
+        }
+    );
+})->skip('Skipping follower notification test for now');
 
-// test('followers are not notified when a draft post is created', function () {
-//     Notification::fake();
+test('followers are not notified when a draft post is created', function () {
+    Notification::fake();
 
-//     $follower = User::factory()->create();
-//     $this->user->followers()->attach($follower);
+    $follower = User::factory()->create();
+    $this->user->followers()->attach($follower);
 
-//     $response = $this->actingAs($this->user)
-//         ->post(route('posts.store'), [
-//             'title' => 'Draft Post',
-//             'body' => 'Test body',
-//             'is_published' => false,
-//         ]);
+    $response = $this->actingAs($this->user)
+        ->post(route('posts.store'), [
+            'title' => 'Draft Post',
+            'body' => 'Test body',
+            'is_published' => false,
+        ]);
 
-//     Notification::assertNothingSent();
-// });
+    Notification::assertNothingSent();
+})->skip('Skipping follower notification update test for now');
 
 expect()->extend('toBePublished', function () {
     expect($this->value->published_at)->not->toBeNull();
