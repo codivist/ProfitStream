@@ -7,10 +7,6 @@ defineProps({
         type: Array,
         required: true,
     },
-    currentUser: {
-        type: Object,
-        required: true,
-    },
 });
 
 const deletePost = (id) => {
@@ -21,7 +17,7 @@ const deletePost = (id) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Posts" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -29,14 +25,14 @@ const deletePost = (id) => {
                 <h2
                     class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
                 >
-                    Blog Posts
+                    My Posts
                 </h2>
-                <a
-                    href="/posts/create"
+                <Link
+                    :href="route('posts.create')"
                     class="rounded-md bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700"
                 >
                     New Post
-                </a>
+                </Link>
             </div>
         </template>
 
@@ -47,7 +43,7 @@ const deletePost = (id) => {
                 >
                     <div class="p-6">
                         <div
-                            v-if="!posts"
+                            v-if="!posts.length"
                             class="py-8 text-center text-gray-600 dark:text-gray-400"
                         >
                             No posts yet. Create your first blog post!
@@ -64,38 +60,27 @@ const deletePost = (id) => {
                                         <h3
                                             class="text-lg font-semibold text-gray-900 dark:text-gray-100"
                                         >
-                                            <a
-                                                :href="`/posts/${post.id}`"
-                                                class="link"
-                                                >{{ post.title }}</a
+                                            <Link
+                                                :href="
+                                                    route('posts.show', post.id)
+                                                "
+                                                class="hover:text-indigo-600 dark:hover:text-indigo-400"
                                             >
+                                                {{ post.title }}
+                                            </Link>
                                         </h3>
                                         <p
                                             class="mt-2 text-sm text-gray-600 dark:text-gray-400"
                                         >
-                                            By
-                                            <Link
-                                                :href="
-                                                    route(
-                                                        'users.posts',
-                                                        post.user.id,
-                                                    )
-                                                "
-                                                class="hover:text-indigo-600 dark:hover:text-indigo-400"
-                                                >{{ post.user.name }}</Link
-                                            >
-                                            •
                                             {{
                                                 new Date(
-                                                    post.published_at,
+                                                    post.created_at,
                                                 ).toLocaleDateString()
                                             }}
                                         </p>
                                     </div>
-                                    <div
-                                        class="flex space-x-2"
-                                        v-if="currentUser.id === post.user.id"
-                                    >
+
+                                    <div class="flex space-x-2">
                                         <Link
                                             :href="route('posts.edit', post.id)"
                                             class="text-sm text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
@@ -115,11 +100,7 @@ const deletePost = (id) => {
                                 >
                                     {{ post.body }}
                                 </p>
-
-                                <div
-                                    class="mt-2 text-sm"
-                                    v-if="currentUser.id === post.user.id"
-                                >
+                                <div class="mt-2 text-sm">
                                     <span
                                         :class="{
                                             'text-green-600 dark:text-green-400':

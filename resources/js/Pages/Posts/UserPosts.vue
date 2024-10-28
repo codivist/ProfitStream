@@ -1,4 +1,5 @@
 <script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -6,48 +7,30 @@ defineProps({
         type: Array,
         required: true,
     },
-    canLogin: {
-        type: Boolean,
+    author: {
+        type: Object,
+        required: true,
     },
-    canRegister: {
+    isFollowing: {
         type: Boolean,
+        required: true,
     },
 });
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head :title="`Posts by ${author.name}`" />
 
-    <div class="relative min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div
-            v-if="canLogin"
-            class="p-6 text-right sm:fixed sm:right-0 sm:top-0"
-        >
-            <Link
-                v-if="$page.props.auth.user"
-                :href="route('dashboard')"
-                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-            >
-                Dashboard
-            </Link>
-
-            <template v-else>
-                <Link
-                    :href="route('login')"
-                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+    <AuthenticatedLayout>
+        <template #header>
+            <div class="flex items-center justify-between">
+                <h2
+                    class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
                 >
-                    Log in
-                </Link>
-
-                <Link
-                    v-if="canRegister"
-                    :href="route('register')"
-                    class="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                >
-                    Register
-                </Link>
-            </template>
-        </div>
+                    Posts by {{ author.name }}
+                </h2>
+            </div>
+        </template>
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -55,17 +38,11 @@ defineProps({
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
                 >
                     <div class="p-6">
-                        <h2
-                            class="mb-6 text-xl font-semibold text-gray-900 dark:text-gray-100"
-                        >
-                            Latest Blog Posts
-                        </h2>
-
                         <div
                             v-if="!posts.length"
                             class="py-8 text-center text-gray-600 dark:text-gray-400"
                         >
-                            No posts available.
+                            No posts yet.
                         </div>
 
                         <div v-else class="space-y-6">
@@ -88,19 +65,6 @@ defineProps({
                                     <p
                                         class="mt-2 text-sm text-gray-600 dark:text-gray-400"
                                     >
-                                        By
-                                        <Link
-                                            :href="
-                                                route(
-                                                    'users.posts',
-                                                    post.user.id,
-                                                )
-                                            "
-                                            class="hover:text-indigo-600 dark:hover:text-indigo-400"
-                                        >
-                                            {{ post.user.name }}
-                                        </Link>
-                                        •
                                         {{
                                             new Date(
                                                 post.published_at,
@@ -119,5 +83,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </div>
+    </AuthenticatedLayout>
 </template>

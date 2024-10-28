@@ -64,8 +64,7 @@ class PostController extends Controller
         }
 
         return Inertia::render('Posts/Show', [
-            'post' => $post->load('user'),
-            'isFollowing' => auth()->check() ? auth()->user()->isFollowing($post->user) : false,
+            'post' => $post->load('user')
         ]);
     }
 
@@ -137,8 +136,7 @@ class PostController extends Controller
                 ->published()
                 ->latest()
                 ->get(),
-            'author' => $user,
-            'isFollowing' => auth()->check() ? auth()->user()->isFollowing($user) : false,
+            'author' => $user
         ]);
     }
 
