@@ -1,66 +1,150 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ProfitStream Blog
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern blog platform built with [Laravel](https://laravel.com/), [Vue.js](https://vuejs.org/), [Inertia.js](https://inertiajs.com/), and [DaisyUI](https://daisyui.com/).
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- User authentication and authorization
+- Blog post creation and management
+- Draft/Published post status
+- User profiles
+- Follow system w/notifications
+- Dark mode support with DaisyUI themes
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prerequisites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL or PostgreSQL
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone the repository
+```bash
+git clone https://github.com/codivist/ProfitStream.git
+```
+2. Install PHP dependencies
+```bash
+composer install
+```
+3. Install NPM & dependencies
+```bash
+npm install
+```
+* Install daisyui - If you have cloned the repo from the main branch, daisyui is already installed. Otherwise, run: `npm install daisyui`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+4. Copy .env.example to .env and configure your database settings
+```bash
+cp .env.example .env
+```
+5. Generate application key
+```bash
+php artisan key:generate
+```
+6. Configure your database in the .env file
+    * don't forget to create the database on your server (:scream_cat: I use Docker/Sail)
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=profitstream
+DB_USERNAME=root
+DB_PASSWORD=your_magical_secret_password
+```
+7. Run migrations
+```bash
+php artisan migrate:install
+php artisan migrate
+```
+8. Seed the database
+    * This will create a a handfull of users and a several blog posts to get you started. Prepare to be blown away by Lorem Ipsum.
+```bash
+php artisan db:seed
+```
+9. Blog Post notifications are sent via Laravel's Queueing system via email. You can use either:
+    * A real email server
+    * [mailhog](https://github.com/mailhog/MailHog) server. To view the emails sent, run `mailhog` and navigate to `http://localhost:8025/`.
+    * [Mailtrap.io](https://mailtrap.io/) (recommended as this is an easy setup and you can test with dummy emails, *and your emails won't be sent to random people by mistake, like you did that one time... yeah we've all been there* :grimacing:)
+    * Just update the `.env` file with your email server details in the `MAIL_MAILER` section
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Development
+1. Start the development server (or use Docker :shrug:)
+```bash
+php artisan serve
+```
+2. Run Vue dev server
+```bash
+npm run dev
+```
+3. Run Linting
+```bash
+npm run lint
+```
 
-## Laravel Sponsors
+## Testing
+1. Run tests
+    * Tests are run with [PestPHP](https://pestphp.com/)
+    * at the time of writing, they were all passing :tada:
+```bash
+php artisan test
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Production
+1. Build assets
+```bash
+npm run build
+```
+2. Run production server
+```bash
+php artisan serve
+```
 
-### Premium Partners
+## Theme Configuration
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+The application uses DaisyUI for theming. Available themes:
+- dracula
+- forest
+- nord
+
+To change the theme, modify the `data-theme` attribute in `resources/views/app.blade.php`.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Details about Darth Vader' and what you did`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[Don't worry I have a permit for that](https://www.youtube.com/watch?v=uq6nBigMnlg)
+
+# Summary & Assumptions
+
+## Summary
+I approached this project with the goal of creating a modern, feature-rich blog platform that is easy to use and maintain. Using Laravel, Inertia, Vue, and DaisyUI, I was able to create a responsive and dynamic blog platform that is easy to use and maintain.
+
+Vuejs was used for the frontend as it allowed me to create a dynamic and responsive user interface. Inertiajs was used for the frontend/backend communication as it allowed me to create the application with page transitions and route handling.
+
+DaisyUI was used as I personally prefer the ease-of-use compared to tailwindCSS. Keep me off my soapbox.
+
+I took some liberties on this project and added a feature that allows the user to publish/unpublish posts. It will also show the publish status in the UI.
+
+:star2: Also to note, I added my tests as I was architecting the project. I'm a big fan of testing and I try to stick to TDD when possible. :star2:
+
+## Assumptions
+* I assume you enjoy Star Wars as much as I do. Even though I don't reference it in the code, I should have added a few easter eggs. I can add that in v.2.0
+* I've assumed that the blog posts will be the main focus of the website and that the user will want to read the blog posts.
+* I've assumed that the user will want to follow other users and be notified when they publish a new blog post.
+* I've assumed that the user will want to be able to view other users posts.
+* Sorry for the bad jokes, I'll try to do better next time.
+
+## Thank you & Dad Joke
+Thank you for your time and consideration on considering me for the Lead Software Engineer position. If you have any questions, please feel free to reach out to me.
+```
+What do you call a typo on a headstone?
+A grave mistake.
+```
+Sorry, not sorry.
