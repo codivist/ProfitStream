@@ -24,11 +24,10 @@ const toggleFollow = () => {
 <template>
     <button
         @click="toggleFollow"
-        class="rounded-md px-4 py-2 text-sm font-medium transition-colors"
+        class="btn"
         :class="{
-            'bg-indigo-600 text-white hover:bg-indigo-700': !isFollowing,
-            'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600':
-                isFollowing,
+            'btn-secondary': !isFollowing,
+            'btn-primary': isFollowing,
         }"
     >
         {{ isFollowing ? 'Unfollow' : 'Follow' }}

@@ -83,13 +83,13 @@ const deletePost = (id) => {
                                     <div class="flex space-x-2">
                                         <Link
                                             :href="route('posts.edit', post.id)"
-                                            class="text-sm text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                            class="link link-primary text-sm"
                                         >
                                             Edit
                                         </Link>
                                         <button
                                             @click="deletePost(post.id)"
-                                            class="text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                                            class="link link-error text-sm"
                                         >
                                             Delete
                                         </button>
@@ -103,9 +103,9 @@ const deletePost = (id) => {
                                 <div class="mt-2 text-sm">
                                     <span
                                         :class="{
-                                            'text-green-600 dark:text-green-400':
+                                            'badge badge-primary badge-outline':
                                                 post.is_published,
-                                            'text-yellow-600 dark:text-yellow-400':
+                                            'badge badge-accent badge-outline':
                                                 !post.is_published,
                                         }"
                                     >

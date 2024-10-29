@@ -47,7 +47,7 @@ const deletePost = (id) => {
                 >
                     <div class="p-6">
                         <div
-                            v-if="!posts"
+                            v-if="!posts.length"
                             class="py-8 text-center text-gray-600 dark:text-gray-400"
                         >
                             No posts yet. Create your first blog post!
@@ -66,7 +66,7 @@ const deletePost = (id) => {
                                         >
                                             <a
                                                 :href="`/posts/${post.id}`"
-                                                class="link"
+                                                class="hover:text-indigo-600 dark:hover:text-indigo-400"
                                                 >{{ post.title }}</a
                                             >
                                         </h3>
@@ -122,9 +122,9 @@ const deletePost = (id) => {
                                 >
                                     <span
                                         :class="{
-                                            'text-green-600 dark:text-green-400':
+                                            'badge badge-primary badge-outline':
                                                 post.is_published,
-                                            'text-yellow-600 dark:text-yellow-400':
+                                            'badge badge-accent badge-outline':
                                                 !post.is_published,
                                         }"
                                     >
