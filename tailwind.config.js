@@ -19,4 +19,8 @@ export default {
     },
 
     plugins: [forms, require('daisyui')],
+    daisyui: {
+        themes: ['dracula', 'forest', 'nord'],
+        // darkTheme: "dracula",
+    },
 };

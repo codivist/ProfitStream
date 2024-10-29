@@ -3,7 +3,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
+import { router, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     post: {
@@ -29,6 +29,12 @@ const submit = () => {
         form.post(route('posts.store'));
     }
 };
+
+const cancel = () => {
+    router.visit(
+        window.history.length > 1 ? window.history.back() : route('dashboard'),
+    );
+};
 </script>
 
 <template>
@@ -50,7 +56,7 @@ const submit = () => {
             <textarea
                 id="body"
                 v-model="form.body"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                class="textarea textarea-bordered w-full"
                 rows="6"
                 required
             />
@@ -62,7 +68,7 @@ const submit = () => {
                 id="is_published"
                 v-model="form.is_published"
                 type="checkbox"
-                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                class="checkbox-info checkbox"
             />
             <InputLabel
                 for="is_published"
@@ -71,8 +77,13 @@ const submit = () => {
             />
         </div>
 
-        <PrimaryButton :disabled="form.processing">
-            {{ props.post.id ? 'Update Post' : 'Create Post' }}
-        </PrimaryButton>
+        <div class="flex items-center justify-between">
+            <button type="button" class="btn btn-neutral" @click="cancel">
+                Cancel
+            </button>
+            <PrimaryButton :disabled="form.processing">
+                {{ props.post.id ? 'Update Post' : 'Create Post' }}
+            </PrimaryButton>
+        </div>
     </form>
 </template>
