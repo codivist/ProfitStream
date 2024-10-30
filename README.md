@@ -2,6 +2,23 @@
 
 A modern blog platform built with [Laravel](https://laravel.com/), [Vue.js](https://vuejs.org/), [Inertia.js](https://inertiajs.com/), and [DaisyUI](https://daisyui.com/).
 
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+  - [Clone repository](#installation)
+  - [Install dependencies](#installation)
+  - [Environment setup](#installation)
+  - [Database configuration](#installation)
+- [Development](#development)
+- [Testing](#testing)
+- [Production](#production)
+- [Theme Configuration](#theme-configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Summary & Assumptions](#summary--assumptions)
+
 ## Features
 
 - User authentication and authorization
