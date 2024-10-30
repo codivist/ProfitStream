@@ -81,12 +81,11 @@ defineProps({
                                 <div>
                                     <span
                                         :class="{
-                                            'text-green-600 dark:text-green-400':
+                                            'badge badge-primary badge-outline':
                                                 post.is_published,
-                                            'text-yellow-600 dark:text-yellow-400':
+                                            'badge badge-accent badge-outline':
                                                 !post.is_published,
                                         }"
-                                        class="text-sm font-medium"
                                     >
                                         {{
                                             post.is_published
