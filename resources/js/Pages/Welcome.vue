@@ -1,4 +1,5 @@
 <script setup>
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -49,7 +50,49 @@ defineProps({
             </template>
         </div>
 
-        <div class="py-12">
+        <div v-if="!$page.props.auth.user" class="py-12">
+            <div class="mx-auto mt-16 max-w-7xl sm:px-6 lg:px-8">
+                <div
+                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
+                >
+                    <div class="flex flex-col items-center p-6 text-center">
+                        <ApplicationLogo
+                            class="h-20 w-20 fill-current text-gray-500 mb-8"
+                        />
+                        <h1
+                            class="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100"
+                        >
+                            Welcome to the Profit Stream!
+                        </h1>
+                        <p class="py-6 text-gray-900 dark:text-gray-100">
+                            A blog for savvy people who like to make money and
+                            watch Star Wars
+                        </p>
+                        <p class="mb-6 text-gray-600 dark:text-gray-400">
+                            Please log in or register to view and interact with
+                            blog posts.
+                        </p>
+                        <div class="space-x-4">
+                            <Link
+                                :href="route('login')"
+                                class="rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+                            >
+                                Log in
+                            </Link>
+                            <Link
+                                v-if="canRegister"
+                                :href="route('register')"
+                                class="rounded-md border border-indigo-600 px-4 py-2 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950"
+                            >
+                                Register
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="$page.props.auth.user" class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
